@@ -11,7 +11,7 @@ const products = [
   {
     name: "Premium Garlic",
     desc: "Handpicked from fertile farms, packed with care to retain rich essential oils and authentic pungent flavor.",
-    image: "/garlic.avif",
+    image: "/Garlic.avif",
   },
   {
     name: "Farm-Fresh Potatoes",
