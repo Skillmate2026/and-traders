@@ -7,21 +7,25 @@ const products = [
     name: "Export-Grade Onions",
     desc: "Carefully sorted and packed to retain natural freshness, aroma, and flavor. Meeting strict global sizing standards.",
     image: "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?auto=format&fit=crop&q=80&w=800",
+    slug: "onion", // Added slug for dynamic routing
   },
   {
     name: "Premium Garlic",
     desc: "Handpicked from fertile farms, packed with care to retain rich essential oils and authentic pungent flavor.",
     image: "/Garlic.avif",
+    slug: "garlic", // Added slug for dynamic routing
   },
   {
     name: "Farm-Fresh Potatoes",
     desc: "Graded for consistency in size and quality. Ideal for bulk international culinary and wholesale processing needs.",
     image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&q=80&w=800",
+    slug: "potato", // Added slug for dynamic routing
   },
   {
     name: "High-Yield Coconuts",
     desc: "Sourced from premier coastal belts. Known for thick meat and rich water content, perfect for retail and extraction.",
     image: "/Coconut.jpeg",
+    slug: "coconut", // Added slug for dynamic routing
   }
 ];
 
@@ -44,10 +48,10 @@ export default function ProductSection() {
         {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {products.map((product, idx) => (
-            <div key={idx} className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-neutral-100 flex flex-col h-full">
+            <div key={idx} className="group bg-white rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-2xl transition-all duration-500 border border-neutral-100 flex flex-col h-full hover:-translate-y-1">
               {/* Image Container */}
               <div className="relative h-64 overflow-hidden">
-                <div className="absolute inset-0 bg-brand-green/20 group-hover:bg-transparent transition-colors z-10" />
+                <div className="absolute inset-0 bg-brand-green/10 group-hover:bg-transparent transition-colors z-10" />
                 <img 
                   src={product.image} 
                   alt={product.name} 
@@ -58,16 +62,31 @@ export default function ProductSection() {
               {/* Content */}
               <div className="p-8 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold text-neutral-900 mb-3">{product.name}</h3>
-                <p className="text-neutral-500 text-sm leading-relaxed mb-6 flex-grow">
+                <p className="text-neutral-500 text-sm leading-relaxed mb-8 flex-grow">
                   {product.desc}
                 </p>
-                <button className="flex items-center text-brand-green font-bold text-sm group/btn hover:text-brand-gold transition-colors w-fit">
-                  Inquire Bulk Order
-                  <ArrowRight className="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1 transition-transform" />
-                </button>
+                {/* Updated: Button acts as a dynamic Link to individual product page */}
+                <Link 
+                  href={`/products/${product.slug}`} 
+                  className="inline-flex items-center text-brand-green font-bold text-sm group/btn hover:text-brand-gold transition-colors w-fit"
+                >
+                  View Details & Specs
+                  <ArrowRight className="w-4 h-4 ml-2 transform group-hover/btn:translate-x-1.5 transition-transform" />
+                </Link>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Added: CTA to Full Catalog */}
+        <div className="mt-16 flex justify-center">
+          <Link 
+            href="/products" 
+            className="inline-flex items-center justify-center gap-3 bg-neutral-900 text-white px-10 py-4 rounded-full font-bold hover:bg-brand-green transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 group"
+          >
+            Explore Full Catalog
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
       </div>

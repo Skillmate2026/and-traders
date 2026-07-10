@@ -1,4 +1,5 @@
-import { Globe, ShieldCheck, Leaf, TrendingUp } from 'lucide-react';
+import { Globe, ShieldCheck, Leaf, TrendingUp, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 export default function AboutSection() {
   const features = [
@@ -41,6 +42,17 @@ export default function AboutSection() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Added: Link to Full About Page */}
+            <div className="pt-4">
+              <Link 
+                href="/about" 
+                className="inline-flex items-center justify-center gap-3 bg-brand-green text-white px-8 py-4 rounded-full font-bold hover:bg-brand-gold transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1 group"
+              >
+                Discover Our Full Story
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </div>
           </div>
 

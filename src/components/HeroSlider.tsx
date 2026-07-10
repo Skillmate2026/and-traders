@@ -1,23 +1,24 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 const slides = [
   {
-    title: "Premium Global Agro Exports",
-    subtitle: "SUSTAINABLE HARVESTS • GLOBAL LOGISTICS",
+    title: "Global Agro Exports",
+    subtitle: "Sustainable Global Logistics",
     description: "Sourcing and delivering high-quality onions, potatoes, and garlic worldwide with unmatched freshness standards.",
     image: "/about1.png",
   },
   {
     title: "Premium Quality Products",
-    subtitle: "DIRECT FROM THE FARM TO THE PORT",
+    subtitle: "Direct From Farm To Port",
     description: "Connecting local harvest farms directly to global markets. High-grade coconuts and wholesale farm essentials.",
     image: "/hero2.png",
   },
   {
     title: "Trusted Trade Network",
-    subtitle: "DEPENDABLE SUPPLY CHAINS",
+    subtitle: "Dependable Supply Chains",
     description: "Reliable international supply chain operations ensuring seamless import and export transitions across borders.",
     image: "/hero1.png",
   }
@@ -37,69 +38,64 @@ export default function HeroSlider() {
   const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-neutral-950">
+    <div className="relative min-h-dvh w-full overflow-hidden bg-neutral-950 font-sans">
       {slides.map((slide, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === current ? "opacity-100 z-10" : "opacity-0 z-0"
+            index === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
           }`}
         >
-          {/* Background Image Container */}
+          {/* Background Image Container with Cinematic Zoom */}
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{ 
               backgroundImage: `url(${slide.image})`,
-              transform: index === current ? 'scale(1)' : 'scale(1.05)',
-              transition: 'transform 6000ms ease-out'
+              transform: index === current ? 'scale(1)' : 'scale(1.08)',
+              transition: 'transform 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
             }}
           />
-          {/* Dark Overlay Gradient - Darker on mobile for readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/95 via-neutral-950/70 to-neutral-950/40 sm:from-neutral-950/90 sm:via-neutral-950/60" />
+          
+          {/* Premium Dark Overlay Gradient */}
+          <div className="absolute inset-0 bg-neutral-950/40 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent" />
 
-          {/* CORE FIX: Flex Layout 
-            Instead of absolute centering with hard padding, we use a flex column 
-            that takes up the full height, pushes content down past the navbar, 
-            and naturally centers the content within the remaining space above the dots.
-          */}
-          <div className="relative z-20 h-full flex flex-col justify-center pt-24 pb-20 sm:pb-32 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-            
-            {/* Content Container */}
-            <div className="w-full text-center space-y-6 sm:space-y-8">
+          {/* Content Wrapper */}
+          <div className="relative z-20 flex min-h-dvh flex-col items-center justify-center px-4 sm:px-8 pt-32 pb-28">
+            <div className="flex w-full max-w-4xl flex-col items-center text-center space-y-5 sm:space-y-8">
               
-              {/* Top Subtitle */}
-              <div className="flex items-center justify-center gap-2 sm:gap-4 w-full px-2">
-                <span className="h-[1px] flex-grow max-w-[2rem] sm:max-w-[3rem] bg-brand-gold"></span>
-                <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.2em] sm:tracking-[0.3em] text-brand-gold uppercase text-center whitespace-nowrap">
+              {/* Premium Subtitle Badge */}
+              <div className="inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
+                <span className="h-[2px] w-4 sm:w-6 bg-brand-gold rounded-full"></span>
+                <span className="text-[9px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-brand-gold drop-shadow-sm">
                   {slide.subtitle}
                 </span>
-                <span className="h-[1px] flex-grow max-w-[2rem] sm:max-w-[3rem] bg-brand-gold"></span>
+                <span className="h-[2px] w-4 sm:w-6 bg-brand-gold rounded-full"></span>
               </div>
 
               {/* Display Title */}
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.15] md:leading-[1.1] drop-shadow-lg px-2">
+              <h1 className="text-4xl sm:text-6xl md:text-7xl font-black leading-[1.1] tracking-tight text-white drop-shadow-2xl">
                 {slide.title}
               </h1>
 
               {/* Descriptive Text */}
-              <p className="text-sm sm:text-lg md:text-xl text-neutral-200 font-light leading-relaxed max-w-2xl mx-auto px-4 sm:px-0 drop-shadow-sm">
+              <p className="max-w-2xl text-sm sm:text-lg md:text-xl text-neutral-300 font-light leading-relaxed drop-shadow-md px-2 sm:px-0">
                 {slide.description}
               </p>
 
               {/* Call-To-Action Buttons */}
-              <div className="pt-2 sm:pt-6 flex flex-col sm:flex-row justify-center items-center gap-4 w-full sm:w-auto px-6 sm:px-0 mx-auto max-w-md sm:max-w-none">
-                <a 
-                  href="#products" 
-                  className="w-full sm:w-auto bg-brand-green text-white font-semibold tracking-wide px-8 py-3.5 sm:py-4 rounded-full transition-all duration-300 shadow-xl hover:bg-brand-gold transform hover:-translate-y-0.5 text-center text-sm sm:text-base flex-shrink-0"
+              <div className="flex w-full flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 pt-2 sm:pt-4 px-4 sm:px-0">
+                <Link 
+                  href="/products" 
+                  className="w-full sm:w-auto flex items-center justify-center rounded-full bg-brand-green px-8 py-3.5 sm:py-4 text-sm font-bold tracking-wide text-white shadow-[0_0_20px_rgba(var(--brand-green-rgb),0.3)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(var(--brand-green-rgb),0.5)] hover:bg-brand-gold sm:text-base"
                 >
                   Explore Products
-                </a>
-                <a 
-                  href="#contact" 
-                  className="w-full sm:w-auto border border-white/30 sm:border-white/20 bg-white/10 sm:bg-white/5 text-white font-semibold tracking-wide px-8 py-3.5 sm:py-4 rounded-full backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-brand-green transform hover:-translate-y-0.5 text-center text-sm sm:text-base flex-shrink-0"
+                </Link>
+                <Link 
+                  href="/contact" 
+                  className="w-full sm:w-auto flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 py-3.5 sm:py-4 text-sm font-bold tracking-wide text-white backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:text-brand-green hover:shadow-xl sm:text-base"
                 >
                   Inquire Now
-                </a>
+                </Link>
               </div>
 
             </div>
@@ -110,30 +106,30 @@ export default function HeroSlider() {
       {/* Desktop Side Controls */}
       <button 
         onClick={prevSlide} 
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/20 hover:bg-brand-green border border-white/20 text-white backdrop-blur-md transition-all duration-300 group hidden md:block"
+        className="group absolute left-8 top-1/2 z-30 hidden -translate-y-1/2 rounded-full border border-white/10 bg-black/20 p-4 text-white backdrop-blur-md transition-all duration-300 hover:bg-brand-green hover:border-brand-green hover:shadow-[0_0_20px_rgba(var(--brand-green-rgb),0.4)] md:block"
         aria-label="Previous slide"
       >
-        <ChevronLeft size={24} className="group-hover:scale-110 transition-transform" />
+        <ChevronLeft size={24} className="transition-transform group-hover:-translate-x-0.5" />
       </button>
       <button 
         onClick={nextSlide} 
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-black/20 hover:bg-brand-green border border-white/20 text-white backdrop-blur-md transition-all duration-300 group hidden md:block"
+        className="group absolute right-8 top-1/2 z-30 hidden -translate-y-1/2 rounded-full border border-white/10 bg-black/20 p-4 text-white backdrop-blur-md transition-all duration-300 hover:bg-brand-green hover:border-brand-green hover:shadow-[0_0_20px_rgba(var(--brand-green-rgb),0.4)] md:block"
         aria-label="Next slide"
       >
-        <ChevronRight size={24} className="group-hover:scale-110 transition-transform" />
+        <ChevronRight size={24} className="transition-transform group-hover:translate-x-0.5" />
       </button>
 
-      {/* Slide Indicators - Safely anchored to the bottom */}
-      <div className="absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 z-30 flex items-center space-x-3">
+      {/* Slide Indicators - ADDED: hidden sm:flex to hide on mobile */}
+      <div className="absolute bottom-6 sm:bottom-10 left-1/2 z-30 hidden sm:flex -translate-x-1/2 items-center space-x-3">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrent(index)}
             aria-label={`Go to slide ${index + 1}`}
-            className={`transition-all duration-500 rounded-full ${
+            className={`h-2.5 rounded-full transition-all duration-500 ease-out ${
               index === current 
-                ? "w-8 h-2 bg-brand-gold shadow-[0_0_10px_rgba(187,148,57,0.5)]" 
-                : "w-2 h-2 bg-white/40 hover:bg-white/80"
+                ? "w-10 bg-brand-gold shadow-[0_0_12px_rgba(187,148,57,0.8)]" 
+                : "w-2.5 bg-white/30 hover:bg-white/60"
             }`}
           />
         ))}

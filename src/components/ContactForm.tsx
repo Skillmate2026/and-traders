@@ -1,5 +1,6 @@
 "use client";
-import { MapPin, Phone, Mail, Send } from 'lucide-react';
+import { MapPin, Phone, Mail, Building2 } from 'lucide-react';
+import LeadForm from './LeadForm'; // Make sure the path matches where you saved LeadForm.tsx
 
 export default function ContactForm() {
   return (
@@ -8,7 +9,7 @@ export default function ContactForm() {
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           
-          {/* Left Side: Contact Form */}
+          {/* Left Side: Text and Form Component */}
           <div className="space-y-8">
             <div>
               <span className="text-brand-gold font-bold tracking-[0.2em] uppercase text-sm mb-4 block">Get In Touch</span>
@@ -20,54 +21,17 @@ export default function ContactForm() {
               </p>
             </div>
 
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <input 
-                  type="text" 
-                  placeholder="Your Name" 
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all text-white placeholder-neutral-500"
-                />
-                <input 
-                  type="email" 
-                  placeholder="Email Address" 
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all text-white placeholder-neutral-500"
-                />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <input 
-                  type="tel" 
-                  placeholder="Phone Number / WhatsApp" 
-                  className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all text-white placeholder-neutral-500"
-                />
-                <select 
-                    defaultValue=""
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all text-neutral-400 appearance-none"
-                    >
-                    <option value="" disabled>Interested Product...</option>
-                    <option value="onions">Onions</option>
-                    <option value="garlic">Garlic</option>
-                    <option value="potatoes">Potatoes</option>
-                    <option value="coconuts">Coconuts</option>
-                    <option value="other">Other / Mixed Container</option>
-                    </select>
-              </div>
-              <textarea 
-                rows={4} 
-                placeholder="Message or Order Details" 
-                className="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-5 py-4 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all text-white placeholder-neutral-500 resize-none"
-              ></textarea>
-              
-              <button type="submit" className="w-full bg-brand-green hover:bg-brand-gold text-white font-bold py-4 rounded-xl transition-colors duration-300 flex items-center justify-center gap-2 group">
-                Send Inquiry
-                <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
+            {/* Imported Reusable Form */}
+            <LeadForm />
+            
           </div>
 
           {/* Right Side: Map and Info */}
           <div className="space-y-8 flex flex-col justify-between">
-            {/* Contact Details */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 bg-neutral-900 p-8 rounded-3xl border border-neutral-800">
+            {/* Contact Details - Updated to a 2x2 grid for branches */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-neutral-900 p-8 rounded-3xl border border-neutral-800">
+              
+              {/* Head Office */}
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
                 <div className="p-3 bg-neutral-800 rounded-full text-brand-gold"><MapPin size={24} /></div>
                 <div>
@@ -76,9 +40,22 @@ export default function ContactForm() {
                     Shop No. 21<br />
                     Adi Udupi, Udupi - 576103<br />
                     Karnataka, India
-                    </p>
+                  </p>
                 </div>
               </div>
+
+              {/* Branches */}
+              <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
+                <div className="p-3 bg-neutral-800 rounded-full text-brand-gold"><Building2 size={24} /></div>
+                <div>
+                  <h4 className="text-white font-semibold">Our Branches</h4>
+                  <p className="text-neutral-400 text-sm mt-1 leading-relaxed">
+                    Udupi, Bangalore, Madurai, Nasik, Indore
+                  </p>
+                </div>
+              </div>
+
+              {/* Phone */}
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
                 <div className="p-3 bg-neutral-800 rounded-full text-brand-gold"><Phone size={24} /></div>
                 <div>
@@ -86,13 +63,16 @@ export default function ContactForm() {
                   <p className="text-neutral-400 text-sm mt-1">+91 93530 67700</p>
                 </div>
               </div>
+
+              {/* Email */}
               <div className="flex flex-col items-center sm:items-start text-center sm:text-left gap-3">
                 <div className="p-3 bg-neutral-800 rounded-full text-brand-gold"><Mail size={24} /></div>
                 <div>
                   <h4 className="text-white font-semibold">Email Us</h4>
-                  <p className="text-neutral-400 text-sm mt-1">info@andtraders.com</p>
+                  <p className="text-neutral-400 text-sm mt-1 break-all">andtraders7700@gmail.com</p>
                 </div>
               </div>
+
             </div>
 
             {/* Google Map */}

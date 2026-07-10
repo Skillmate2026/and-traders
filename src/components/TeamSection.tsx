@@ -8,7 +8,7 @@ const team = [
     bio: "Driving the global vision of AND Traders. Dhanush is dedicated to bridging the gap between sustainable local agriculture and high-demand international markets, ensuring uncompromising quality at every step.",
   },
   {
-    name: "[Co-Founder Name]", // Replace this when you get the name!
+    name: "Anand N Kalal", 
     role: "Co-Founder",
     image: "/Cofounder.jpeg",
     bio: "Overseeing our vast international logistics network. Ensuring that our supply chain remains seamless, efficient, and perfectly compliant with global trade standards from farm to port.",
@@ -17,11 +17,13 @@ const team = [
 
 export default function TeamSection() {
   return (
-    <section id="team" className="py-24 bg-white">
+    // Changed py-24 to py-12 md:py-16 to reduce the massive top/bottom gaps
+    <section id="team" className="py-6 md:py-12 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        {/* Changed mb-16 to mb-10 to tighten the space between header and images */}
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-4">
           <span className="text-brand-gold font-bold tracking-[0.2em] uppercase text-sm">Leadership</span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-neutral-900">
             Meet Our <span className="text-brand-green">Founders</span>
@@ -37,7 +39,8 @@ export default function TeamSection() {
             <div key={idx} className="group flex flex-col items-center text-center">
               
               {/* Image Container with Premium Hover Effect */}
-              <div className="relative w-64 h-64 mb-8 overflow-hidden rounded-full border-4 border-neutral-50 shadow-lg group-hover:border-brand-gold transition-colors duration-500">
+              {/* Reduced mb-8 to mb-6 to bring text slightly closer to the image */}
+              <div className="relative w-64 h-64 mb-6 overflow-hidden rounded-full border-4 border-neutral-50 shadow-lg group-hover:border-brand-gold transition-colors duration-500">
                 <div className="absolute inset-0 bg-brand-green/10 group-hover:bg-transparent transition-colors z-10" />
                 <img 
                   src={leader.image} 

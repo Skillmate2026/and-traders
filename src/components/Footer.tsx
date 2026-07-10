@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { MapPin, Building2, Phone, Mail } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -22,9 +23,10 @@ export default function Footer() {
             <h4 className="text-neutral-900 font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
             <ul className="space-y-4">
               <li><Link href="/" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Home</Link></li>
-              <li><Link href="#about" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">About Us</Link></li>
-              <li><Link href="#testimonials" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Testimonials</Link></li>
-              <li><Link href="#contact" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Contact Us</Link></li>
+              <li><Link href="/about" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">About Us</Link></li>
+              <li><Link href="/products" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Our Products</Link></li>
+              <li><Link href="/#testimonials" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Testimonials</Link></li>
+              <li><Link href="/contact" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -32,29 +34,44 @@ export default function Footer() {
           <div>
             <h4 className="text-neutral-900 font-bold mb-6 uppercase tracking-wider text-sm">Our Products</h4>
             <ul className="space-y-4">
-              <li><Link href="#products" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Export-Grade Onions</Link></li>
-              <li><Link href="#products" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Premium Garlic</Link></li>
-              <li><Link href="#products" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Farm-Fresh Potatoes</Link></li>
-              <li><Link href="#products" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">High-Yield Coconuts</Link></li>
+              <li><Link href="/products/onion" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Export-Grade Onions</Link></li>
+              <li><Link href="/products/garlic" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Premium Garlic</Link></li>
+              <li><Link href="/products/potato" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">Farm-Fresh Potatoes</Link></li>
+              <li><Link href="/products/coconut" className="text-neutral-500 hover:text-brand-green transition-colors text-sm">High-Yield Coconuts</Link></li>
             </ul>
           </div>
 
-          {/* Business Hours */}
+          {/* Contact Info */}
           <div>
-            <h4 className="text-neutral-900 font-bold mb-6 uppercase tracking-wider text-sm">Business Hours</h4>
+            <h4 className="text-neutral-900 font-bold mb-6 uppercase tracking-wider text-sm">Contact Info</h4>
             <ul className="space-y-4 text-sm text-neutral-500">
-              <li className="flex justify-between">
-                <span>Monday - Friday:</span>
-                <span className="text-neutral-900 font-medium">9:00 AM - 6:00 PM</span>
+              
+              <li className="flex flex-col gap-1.5">
+                <span className="text-neutral-900 font-medium flex items-center gap-2">
+                  <MapPin size={16} className="text-brand-gold" /> Head Office
+                </span>
+                <span className="pl-6">Shop No. 21, Adi Udupi,<br />Udupi - 576103</span>
               </li>
-              <li className="flex justify-between">
-                <span>Saturday:</span>
-                <span className="text-neutral-900 font-medium">9:00 AM - 2:00 PM</span>
+              
+              <li className="flex flex-col gap-1.5">
+                <span className="text-neutral-900 font-medium flex items-center gap-2">
+                  <Building2 size={16} className="text-brand-gold" /> Branches
+                </span>
+                <span className="pl-6 leading-relaxed">Udupi, Bangalore, Madurai, Nasik, Indore</span>
               </li>
-              <li className="flex justify-between">
-                <span>Sunday:</span>
-                <span className="text-brand-green font-medium">Closed</span>
+
+              <li className="pt-2">
+                <a href="tel:+919353067700" className="flex items-center gap-2 hover:text-brand-green transition-colors">
+                  <Phone size={16} className="text-brand-gold" /> +91 93530 67700
+                </a>
               </li>
+
+              <li>
+                <a href="mailto:andtraders7700@gmail.com" className="flex items-center gap-2 hover:text-brand-green transition-colors">
+                  <Mail size={16} className="text-brand-gold" /> andtraders7700@gmail.com
+                </a>
+              </li>
+
             </ul>
           </div>
         </div>
