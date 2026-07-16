@@ -5,84 +5,125 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import LeadForm from '@/components/LeadForm';
 import { MapPin, Phone, Mail, Building2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function ContactPage() {
+  // --- Animation Variants ---
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 } 
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+  };
+
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-50 font-sans">
+    <div className="flex flex-col min-h-screen bg-[#f9f8f6] font-sans">
       <Navbar />
 
-      <main className="flex-grow pt-24">
+      <main className="flex-grow">
         
-        {/* Premium Page Header with Background */}
-        <section className="relative bg-neutral-950 pt-20 pb-32 md:pt-32 md:pb-48 overflow-hidden">
-          {/* Subtle Background Image */}
-          <div className="absolute inset-0 bg-[url('/about1.png')] bg-cover bg-center opacity-30" />
-          {/* Deep Gradient to fade image naturally */}
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/80 to-transparent" />
+        {/* --- Premium Page Header --- */}
+        <section className="relative bg-[#0a2e1f] pt-32 pb-48 md:pt-48 md:pb-64 overflow-hidden">
+          {/* Moody Parallax Background */}
+          <div className="absolute inset-0 bg-[url('/about1.png')] bg-cover bg-center opacity-20 mix-blend-overlay" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a2e1f] via-[#0a2e1f]/80 to-transparent" />
           
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <span className="inline-block py-1 px-3 rounded-full bg-brand-gold/10 text-brand-gold font-bold tracking-[0.2em] uppercase text-xs mb-6 border border-brand-gold/20">
-              Reach Out To Us
-            </span>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tight drop-shadow-2xl">
-              Let's Talk <span className="text-brand-green">Business</span>
-            </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-lg text-neutral-400 font-light leading-relaxed">
+          <motion.div 
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center"
+          >
+            <motion.div variants={itemVariants} className="flex justify-center items-center gap-4 mb-6">
+              <span className="w-12 h-[1px] bg-[#d4af37]"></span>
+              <span className="text-[#d4af37] font-semibold tracking-[0.25em] uppercase text-xs">
+                Global Operations
+              </span>
+              <span className="w-12 h-[1px] bg-[#d4af37]"></span>
+            </motion.div>
+
+            <motion.h1 variants={itemVariants} className="text-5xl md:text-7xl lg:text-8xl font-serif text-[#f9f8f6] tracking-tight leading-tight">
+              Let's Talk <span className="italic font-light text-[#d4af37]">Business.</span>
+            </motion.h1>
+            
+            <motion.p variants={itemVariants} className="mt-8 max-w-2xl mx-auto text-lg text-white/70 font-light leading-relaxed">
               Whether you are looking to place a bulk order or inquire about our global supply chain, our executive team is ready to assist you.
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
         </section>
 
-        {/* Contact Info Cards (Overlapping the header for a premium "floating" effect) */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 md:-mt-32 relative z-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* --- Contact Info Cards (Overlapping the header) --- */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 md:-mt-32 relative z-20">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "100px" }}
+            variants={containerVariants}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
             
             {/* Head Office */}
-            <div className="bg-white p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100 flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-500">
-              <div className="w-16 h-16 bg-neutral-50 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-brand-green group-hover:scale-110 transition-all duration-500">
-                <MapPin size={28} className="text-brand-green group-hover:text-white transition-colors" />
+            <motion.div variants={itemVariants} className="bg-white p-10 rounded-sm shadow-xl border border-neutral-100 flex flex-col items-center text-center group hover:border-[#d4af37]/50 transition-all duration-500">
+              <div className="mb-6 text-[#0a2e1f] group-hover:-translate-y-2 group-hover:text-[#d4af37] transition-all duration-500">
+                <MapPin size={32} strokeWidth={1.5} />
               </div>
-              <h3 className="font-bold text-neutral-900 text-lg mb-2">Head Office</h3>
+              <h3 className="font-serif text-[#0a2e1f] text-xl mb-3">Head Office</h3>
               <p className="text-neutral-500 text-sm font-light leading-relaxed">Shop No. 21, Adi Udupi,<br />Udupi - 576103, Karnataka</p>
-            </div>
+            </motion.div>
 
             {/* Branches */}
-            <div className="bg-white p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100 flex flex-col items-center text-center group hover:-translate-y-2 transition-all duration-500">
-              <div className="w-16 h-16 bg-neutral-50 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-brand-green group-hover:scale-110 transition-all duration-500">
-                <Building2 size={28} className="text-brand-green group-hover:text-white transition-colors" />
+            <motion.div variants={itemVariants} className="bg-white p-10 rounded-sm shadow-xl border border-neutral-100 flex flex-col items-center text-center group hover:border-[#d4af37]/50 transition-all duration-500">
+              <div className="mb-6 text-[#0a2e1f] group-hover:-translate-y-2 group-hover:text-[#d4af37] transition-all duration-500">
+                <Building2 size={32} strokeWidth={1.5} />
               </div>
-              <h3 className="font-bold text-neutral-900 text-lg mb-2">Our Branches</h3>
+              <h3 className="font-serif text-[#0a2e1f] text-xl mb-3">Our Branches</h3>
               <p className="text-neutral-500 text-sm font-light leading-relaxed">Udupi, Bangalore, Madurai, Nasik, Indore</p>
-            </div>
+            </motion.div>
 
             {/* Phone (Clickable) */}
-            <Link href="tel:+919353067700" className="bg-white p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:border-brand-gold/30 transition-all duration-500 cursor-pointer">
-              <div className="w-16 h-16 bg-neutral-50 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-brand-gold group-hover:scale-110 transition-all duration-500">
-                <Phone size={28} className="text-brand-gold group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="font-bold text-neutral-900 text-lg mb-2">Call Us</h3>
-              <p className="text-brand-green font-semibold text-sm group-hover:text-brand-gold transition-colors">+91 93530 67700</p>
-            </Link>
+            <motion.div variants={itemVariants}>
+              <Link href="tel:+919353067700" className="bg-white p-10 rounded-sm shadow-xl border border-neutral-100 flex flex-col items-center text-center group hover:border-[#d4af37]/50 transition-all duration-500 cursor-pointer h-full">
+                <div className="mb-6 text-[#0a2e1f] group-hover:-translate-y-2 group-hover:text-[#d4af37] transition-all duration-500">
+                  <Phone size={32} strokeWidth={1.5} />
+                </div>
+                <h3 className="font-serif text-[#0a2e1f] text-xl mb-3">Direct Line</h3>
+                <p className="text-[#d4af37] font-medium tracking-widest text-xs uppercase mt-2">+91 93530 67700</p>
+              </Link>
+            </motion.div>
 
-            {/* Email (Clickable) */}
-            <Link href="mailto:andtraders7700@gmail.com" className="bg-white p-8 rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100 flex flex-col items-center text-center group hover:-translate-y-2 hover:border-brand-gold/30 transition-all duration-500 cursor-pointer">
-              <div className="w-16 h-16 bg-neutral-50 flex items-center justify-center rounded-2xl mb-6 group-hover:bg-brand-gold group-hover:scale-110 transition-all duration-500">
-                <Mail size={28} className="text-brand-gold group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="font-bold text-neutral-900 text-lg mb-2">Email Us</h3>
-              <p className="text-brand-green font-semibold text-sm group-hover:text-brand-gold transition-colors break-all">andtraders7700@gmail.com</p>
-            </Link>
+            {/* Email (Clickable) - Removed uppercase, changed tracking/size for readability */}
+            <motion.div variants={itemVariants}>
+              <Link href="mailto:andtraders7700@gmail.com" className="bg-white p-10 rounded-sm shadow-xl border border-neutral-100 flex flex-col items-center text-center group hover:border-[#d4af37]/50 transition-all duration-500 cursor-pointer h-full">
+                <div className="mb-6 text-[#0a2e1f] group-hover:-translate-y-2 group-hover:text-[#d4af37] transition-all duration-500">
+                  <Mail size={32} strokeWidth={1.5} />
+                </div>
+                <h3 className="font-serif text-[#0a2e1f] text-xl mb-3">Email Desk</h3>
+                <p className="text-[#d4af37] font-medium tracking-wide text-sm mt-2 break-all">andtraders7700<br/>@gmail.com</p>
+              </Link>
+            </motion.div>
 
-          </div>
+          </motion.div>
         </section>
 
-        {/* Map and Form Section */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-[2.5rem] shadow-2xl overflow-hidden border border-neutral-100">
+        {/* --- Map and Form Section --- */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-[#051810] rounded-sm shadow-2xl overflow-hidden"
+          >
             
-            {/* Left: Huge Map (Fills entire left side beautifully) */}
-            <div className="h-[400px] lg:h-auto w-full relative">
-              <div className="absolute inset-0 bg-brand-green/10 pointer-events-none z-10 mix-blend-multiply" /> {/* Subtle tint over map */}
+            {/* Left: Huge Map */}
+            <div className="h-[500px] lg:h-auto w-full relative group">
+              <div className="absolute inset-0 bg-[#0a2e1f]/20 pointer-events-none z-10 mix-blend-overlay transition-colors duration-700 group-hover:bg-transparent" />
               <iframe 
                 src="https://maps.google.com/maps?q=Shop%20no%2021,%20Adi%20Udupi,%20Udupi%20576103&t=&z=15&ie=UTF8&iwloc=&output=embed" 
                 width="100%" 
@@ -91,30 +132,36 @@ export default function ContactPage() {
                 allowFullScreen={true} 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 w-full h-full grayscale hover:grayscale-0 transition-all duration-1000 object-cover"
+                className="absolute inset-0 w-full h-full grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-1000 object-cover"
               ></iframe>
             </div>
 
             {/* Right: Dark Form Container */}
-            <div className="relative bg-neutral-950 p-8 sm:p-12 md:p-16 flex flex-col justify-center overflow-hidden">
-              {/* Decorative Glow Elements */}
-              <div className="absolute -top-32 -right-32 w-96 h-96 bg-brand-green/10 blur-[100px] rounded-full pointer-events-none" />
-              <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-brand-gold/10 blur-[100px] rounded-full pointer-events-none" />
-
+            <div className="relative p-10 sm:p-14 md:p-20 flex flex-col justify-center">
               <div className="relative z-10">
-                <h3 className="text-3xl md:text-4xl font-extrabold text-white mb-3 tracking-tight">Send an Inquiry</h3>
-                <p className="text-neutral-400 mb-10 font-light text-sm md:text-base leading-relaxed">
-                  Fill out the details below and our global sales team will respond with your personalized quote within 24 hours.
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="w-8 h-[1px] bg-[#d4af37]"></span>
+                  <span className="text-[#d4af37] font-semibold tracking-[0.25em] uppercase text-xs">
+                    Inquire Now
+                  </span>
+                </div>
+                
+                <h3 className="text-3xl md:text-4xl font-serif text-[#f9f8f6] mb-4 leading-tight">
+                  Request a Formal Quote.
+                </h3>
+                
+                <p className="text-white/60 mb-12 font-light text-sm md:text-base leading-relaxed">
+                  Fill out the details below and our global sales team will respond with your personalized commodity quote within 24 hours.
                 </p>
                 
-                {/* Reused Form Component inserted here! */}
+                {/* Reused Form Component */}
                 <div className="form-wrapper">
                   <LeadForm />
                 </div>
               </div>
             </div>
 
-          </div>
+          </motion.div>
         </section>
 
       </main>

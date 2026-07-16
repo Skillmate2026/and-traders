@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const slides = [
   {
@@ -11,7 +12,7 @@ const slides = [
     image: "/about1.png",
   },
   {
-    title: "Premium Quality Products",
+    title: "Premium Products",
     subtitle: "Direct From Farm To Port",
     description: "Connecting local harvest farms directly to global markets. High-grade coconuts and wholesale farm essentials.",
     image: "/hero2.png",
@@ -24,113 +25,157 @@ const slides = [
   }
 ];
 
+// Variants for the sliding animation
+const slideVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
+
+// Variants for text staggering
+const textVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+};
+
 export default function HeroSlider() {
-  const [current, setCurrent] = useState(0);
+  const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  // We wrap the index so it loops endlessly
+  const imageIndex = Math.abs(page % slides.length);
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setPage(page + newDirection);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-    }, 6000);
+      paginate(1);
+    }, 7000); // Slightly longer for a more relaxed, premium pace
     return () => clearInterval(timer);
-  }, []);
-
-  const nextSlide = () => setCurrent(current === slides.length - 1 ? 0 : current + 1);
-  const prevSlide = () => setCurrent(current === 0 ? slides.length - 1 : current - 1);
+  }, [page]);
 
   return (
-    <div className="relative min-h-dvh w-full overflow-hidden bg-neutral-950 font-sans">
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === current ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-          }`}
+    <div className="relative h-screen w-full overflow-hidden bg-[#0a2e1f]">
+      <AnimatePresence initial={false} custom={direction}>
+        <motion.div
+          key={page}
+          custom={direction}
+          variants={slideVariants}
+          initial="enter"
+          animate="center"
+          exit="exit"
+          transition={{
+            x: { type: "spring", stiffness: 300, damping: 30 },
+            opacity: { duration: 0.8 },
+          }}
+          className="absolute inset-0"
         >
-          {/* Background Image Container */}
-          <div
+          {/* Background Image Container with slow continuous zoom */}
+          <motion.div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ 
-              backgroundImage: `url(${slide.image})`,
-              transform: index === current ? 'scale(1)' : 'scale(1.08)',
-              transition: 'transform 7000ms cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-            }}
+            style={{ backgroundImage: `url(${slides[imageIndex].image})` }}
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.1 }}
+            transition={{ duration: 10, ease: "linear" }}
           />
           
-          <div className="absolute inset-0 bg-neutral-950/40 bg-gradient-to-t from-neutral-950 via-neutral-950/60 to-transparent" />
+          {/* Moody Overlay */}
+          <div className="absolute inset-0 bg-black/50" />
 
-          {/* CONTENT WRAPPER: Changed pt/pb to be responsive to fix the excessive gap issue */}
-          <div className="relative z-20 flex min-h-dvh flex-col items-center justify-center px-4 sm:px-8 pt-20 pb-20 sm:pt-32 sm:pb-28">
-            <div className="flex w-full max-w-4xl flex-col items-center text-center space-y-4 sm:space-y-8">
+          {/* Content Wrapper */}
+          <div className="relative z-20 flex h-full flex-col items-center justify-center px-4 sm:px-8 pt-20">
+            <motion.div 
+              initial="hidden"
+              animate="visible"
+              transition={{ staggerChildren: 0.2, delayChildren: 0.4 }}
+              className="flex w-full max-w-5xl flex-col items-center text-center space-y-6 sm:space-y-8"
+            >
               
               {/* Premium Subtitle Badge */}
-              <div className="inline-flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)]">
-                <span className="h-[2px] w-4 sm:w-6 bg-brand-gold rounded-full"></span>
-                <span className="text-[9px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-brand-gold drop-shadow-sm">
-                  {slide.subtitle}
+              <motion.div variants={textVariants} className="inline-flex items-center justify-center gap-4">
+                <span className="h-[1px] w-8 sm:w-12 bg-[#d4af37]"></span>
+                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#d4af37]">
+                  {slides[imageIndex].subtitle}
                 </span>
-                <span className="h-[2px] w-4 sm:w-6 bg-brand-gold rounded-full"></span>
-              </div>
+                <span className="h-[1px] w-8 sm:w-12 bg-[#d4af37]"></span>
+              </motion.div>
 
               {/* Display Title */}
-              <h1 className="text-3xl sm:text-6xl md:text-7xl font-black leading-[1.1] tracking-tight text-white drop-shadow-2xl">
-                {slide.title}
-              </h1>
+              <motion.h1 variants={textVariants} className="text-4xl sm:text-6xl md:text-8xl font-serif leading-[1.1] text-[#f9f8f6]">
+                {slides[imageIndex].title}
+              </motion.h1>
 
               {/* Descriptive Text */}
-              <p className="max-w-xl text-xs sm:text-lg md:text-xl text-neutral-300 font-light leading-relaxed drop-shadow-md px-2 sm:px-0">
-                {slide.description}
-              </p>
+              <motion.p variants={textVariants} className="max-w-2xl text-sm sm:text-lg text-neutral-300 font-light leading-relaxed">
+                {slides[imageIndex].description}
+              </motion.p>
 
               {/* Call-To-Action Buttons */}
-              <div className="flex w-full flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 pt-2 sm:pt-4">
+              <motion.div variants={textVariants} className="flex w-full flex-col sm:flex-row justify-center items-center gap-4 pt-8">
                 <Link 
-                  href="/products" 
-                  className="w-full sm:w-auto flex items-center justify-center rounded-full bg-brand-green px-8 py-3 sm:py-4 text-xs sm:text-base font-bold tracking-wide text-white transition-all duration-300 hover:bg-brand-gold hover:-translate-y-1 shadow-lg"
+                  href="/our-products" 
+                  className="w-full sm:w-auto flex items-center justify-center rounded-sm bg-[#d4af37] px-10 py-4 text-xs sm:text-sm uppercase tracking-widest font-medium text-[#0a2e1f] transition-colors duration-500 hover:bg-white"
                 >
                   Explore Products
                 </Link>
                 <Link 
                   href="/contact" 
-                  className="w-full sm:w-auto flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-8 py-3 sm:py-4 text-xs sm:text-base font-bold tracking-wide text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-brand-green hover:-translate-y-1"
+                  className="w-full sm:w-auto flex items-center justify-center rounded-sm border border-white/30 bg-transparent px-10 py-4 text-xs sm:text-sm uppercase tracking-widest font-medium text-white transition-colors duration-500 hover:bg-white hover:text-[#0a2e1f]"
                 >
                   Inquire Now
                 </Link>
-              </div>
-
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
-        </div>
-      ))}
+        </motion.div>
+      </AnimatePresence>
 
-      {/* Desktop Side Controls */}
+      {/* Elegant Side Controls */}
       <button 
-        onClick={prevSlide} 
-        className="group absolute left-8 top-1/2 z-30 hidden -translate-y-1/2 rounded-full border border-white/10 bg-black/20 p-4 text-white backdrop-blur-md transition-all duration-300 hover:bg-brand-green md:block"
-        aria-label="Previous slide"
+        onClick={() => paginate(-1)} 
+        className="absolute left-8 top-1/2 z-30 hidden -translate-y-1/2 p-4 text-white/50 transition-all duration-300 hover:text-white md:block group"
       >
-        <ChevronLeft size={24} />
+        <ChevronLeft size={40} strokeWidth={1} className="group-hover:-translate-x-2 transition-transform duration-300" />
       </button>
       <button 
-        onClick={nextSlide} 
-        className="group absolute right-8 top-1/2 z-30 hidden -translate-y-1/2 rounded-full border border-white/10 bg-black/20 p-4 text-white backdrop-blur-md transition-all duration-300 hover:bg-brand-green md:block"
-        aria-label="Next slide"
+        onClick={() => paginate(1)} 
+        className="absolute right-8 top-1/2 z-30 hidden -translate-y-1/2 p-4 text-white/50 transition-all duration-300 hover:text-white md:block group"
       >
-        <ChevronRight size={24} />
+        <ChevronRight size={40} strokeWidth={1} className="group-hover:translate-x-2 transition-transform duration-300" />
       </button>
 
-      {/* Slide Indicators - Hidden on mobile */}
-      <div className="absolute bottom-6 sm:bottom-10 left-1/2 z-30 hidden sm:flex -translate-x-1/2 items-center space-x-3">
+      {/* Slide Indicators */}
+      <div className="absolute bottom-10 left-1/2 z-30 hidden sm:flex -translate-x-1/2 items-center space-x-4">
         {slides.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrent(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            className={`h-2.5 rounded-full transition-all duration-500 ${
-              index === current 
-                ? "w-10 bg-brand-gold shadow-[0_0_12px_rgba(187,148,57,0.8)]" 
-                : "w-2.5 bg-white/30 hover:bg-white/60"
-            }`}
-          />
+            onClick={() => {
+              setDirection(index > imageIndex ? 1 : -1);
+              setPage(index);
+            }}
+            className="relative h-1 w-16 overflow-hidden rounded-full bg-white/20"
+          >
+            {index === imageIndex && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute inset-0 bg-[#d4af37]"
+                initial={false}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              />
+            )}
+          </button>
         ))}
       </div>
     </div>
