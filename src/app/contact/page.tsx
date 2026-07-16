@@ -19,7 +19,7 @@ export default function ContactPage() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
   };
 
   return (
@@ -117,7 +117,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] as const }}
             className="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-[#051810] rounded-sm shadow-2xl overflow-hidden"
           >
             
