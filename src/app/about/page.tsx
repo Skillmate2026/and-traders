@@ -124,7 +124,7 @@ export default function AboutPage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
+                transition={{ duration: 1.2, ease: "easeOut" as const }}
                 className="relative lg:h-[800px]"
               >
                 <div className="absolute inset-0 bg-[#0a2e1f]/5 z-10 mix-blend-overlay rounded-sm" />

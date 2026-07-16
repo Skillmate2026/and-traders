@@ -28,7 +28,7 @@ export default function PremiumAboutSection() {
 
   const imageVariants = {
     hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
+    visible: { opacity: 1, scale: 1, transition: { duration: 1.2, ease: "easeOut" as const} }
   };
 
   return (

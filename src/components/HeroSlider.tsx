@@ -44,7 +44,7 @@ const slideVariants = {
 // Variants for text staggering
 const textVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const} }
 };
 
 export default function HeroSlider() {
@@ -88,7 +88,7 @@ export default function HeroSlider() {
             style={{ backgroundImage: `url(${slides[imageIndex].image})` }}
             initial={{ scale: 1 }}
             animate={{ scale: 1.1 }}
-            transition={{ duration: 10, ease: "linear" }}
+            transition={{ duration: 10, ease: "linear" as const}}
           />
           
           {/* Moody Overlay */}

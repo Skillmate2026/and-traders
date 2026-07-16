@@ -145,7 +145,7 @@ export default function ProductDetail({ params }: { params: Promise<{ slug: stri
             <motion.div 
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              transition={{ duration: 1, ease: "easeOut" as const}}
               className="lg:col-span-5 sticky top-32"
             >
               <div className="relative rounded-sm overflow-hidden shadow-2xl h-[450px] lg:h-[650px] group bg-[#0a2e1f] border-4 border-[#f9f8f6]">
