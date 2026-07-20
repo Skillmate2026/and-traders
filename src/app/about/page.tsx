@@ -11,12 +11,16 @@ const team = [
     role: "Founder & CEO",
     image: "/Founder.avif",
     bio: "Driving the global vision of AND Traders. Dhanush is dedicated to bridging the gap between sustainable local agriculture and high-demand international markets, ensuring uncompromising quality at every step.",
+    email: "dhanushsalian333@gmail.com",
+    linkedin: "", // Add the LinkedIn URL here later to make the button visible
   },
   {
     name: "Anand N Kalal", 
     role: "Founder & Chairman",
     image: "/Cofounder.jpg",
     bio: "Overseeing our vast international logistics network. Ensuring that our supply chain remains seamless, efficient, and perfectly compliant with global trade standards from farm to port.",
+    email: "kalalanandsts@gmail.com",
+    linkedin: "", // Add the LinkedIn URL here later to make the button visible
   }
 ];
 
@@ -185,7 +189,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* --- Leadership / Founders Section (Consistent with Landing Page) --- */}
+        {/* --- Leadership / Founders Section --- */}
         <section className="py-24 md:py-32 bg-white border-t border-neutral-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
@@ -219,7 +223,7 @@ export default function AboutPage() {
               {team.map((leader, idx) => (
                 <motion.div key={idx} variants={itemVariants} className="group flex flex-col items-center text-center">
                   
-                  {/* Editorial Image Container (4/5 Aspect Ratio) */}
+                  {/* Editorial Image Container */}
                   <div className="relative w-full max-w-[320px] aspect-[4/5] mb-8 overflow-hidden rounded-sm bg-neutral-100">
                     <div className="absolute inset-0 bg-[#0a2e1f]/20 group-hover:bg-transparent transition-colors duration-700 z-10 mix-blend-overlay" />
                     
@@ -240,19 +244,37 @@ export default function AboutPage() {
                     {leader.bio}
                   </p>
                   
-                  <div className="flex gap-4">
-                    <button className="p-3 border border-neutral-200 text-neutral-400 hover:border-[#d4af37] hover:text-[#d4af37] rounded-sm transition-all duration-300">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                        <rect x="2" y="9" width="4" height="12"></rect>
-                        <circle cx="4" cy="4" r="2"></circle>
-                      </svg>
-                    </button>
-                    <button className="p-3 border border-neutral-200 text-neutral-400 hover:border-[#d4af37] hover:text-[#d4af37] rounded-sm transition-all duration-300">
-                      <Mail size={18} strokeWidth={1.5} />
-                    </button>
-                  </div>
+                  <div className="flex justify-center gap-4">
+                    
+                    {/* LinkedIn Button (Conditionally Rendered) */}
+                    {leader.linkedin && (
+                      <a 
+                        href={leader.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-3 border border-neutral-200 text-neutral-400 hover:border-[#d4af37] hover:text-[#d4af37] rounded-sm transition-all duration-300"
+                        aria-label={`${leader.name} LinkedIn`}
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                          <rect x="2" y="9" width="4" height="12"></rect>
+                          <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                      </a>
+                    )}
 
+                    {/* Email Button */}
+                    {leader.email && (
+                      <a 
+                        href={`mailto:${leader.email}`} 
+                        className="p-3 border border-neutral-200 text-neutral-400 hover:border-[#d4af37] hover:text-[#d4af37] rounded-sm transition-all duration-300"
+                        aria-label={`Email ${leader.name}`}
+                      >
+                        <Mail size={18} strokeWidth={1.5} />
+                      </a>
+                    )}
+                    
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
