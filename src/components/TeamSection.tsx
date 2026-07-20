@@ -12,7 +12,7 @@ const team = [
   },
   {
     name: "Anand N Kalal", 
-    role: "Co-Founder",
+    role: "Founder & MD",
     image: "/Cofounder.jpeg",
     bio: "Overseeing our vast international logistics network. Ensuring that our supply chain remains seamless, efficient, and perfectly compliant with global trade standards from farm to port.",
   }
