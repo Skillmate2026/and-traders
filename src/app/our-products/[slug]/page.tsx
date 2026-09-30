@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import Navbar from '../../../components/Navbar'; // Adjust paths based on your folder structure
 import Footer from '../../../components/Footer';
-import { Package, Scale, MapPin, Calendar, ArrowRight, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { Package, Scale, MapPin, Calendar, ArrowRight, ArrowLeft, ShieldCheck, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Centralized Data
@@ -19,6 +19,7 @@ const productData: Record<string, any> = {
       { icon: <Package size={24} strokeWidth={1.5} />, title: "Packaging", val: "5kg - 50kg Mesh/Jute Bags" },
       { icon: <MapPin size={24} strokeWidth={1.5} />, title: "Origin", val: "Maharashtra / Karnataka, India" },
       { icon: <Calendar size={24} strokeWidth={1.5} />, title: "Shelf Life", val: "3 to 4 Months (in ideal storage)" },
+      { icon: <Tag size={24} strokeWidth={1.5} />, title: "Current Rate", val: "45 - 50" },
     ]
   },
   potato: {
@@ -31,6 +32,7 @@ const productData: Record<string, any> = {
       { icon: <Package size={24} strokeWidth={1.5} />, title: "Packaging", val: "10kg - 50kg Mesh Bags" },
       { icon: <MapPin size={24} strokeWidth={1.5} />, title: "Origin", val: "Gujarat / UP, India" },
       { icon: <Calendar size={24} strokeWidth={1.5} />, title: "Shelf Life", val: "Long-lasting in cold storage" },
+      { icon: <Tag size={24} strokeWidth={1.5} />, title: "Current Rate", val: "15 - 17" },
     ]
   },
   garlic: {
@@ -43,6 +45,7 @@ const productData: Record<string, any> = {
       { icon: <Package size={24} strokeWidth={1.5} />, title: "Packaging", val: "10kg Carton / 20kg Mesh Bags" },
       { icon: <MapPin size={24} strokeWidth={1.5} />, title: "Origin", val: "Madhya Pradesh / Rajasthan, India" },
       { icon: <Calendar size={24} strokeWidth={1.5} />, title: "Shelf Life", val: "8 to 10 Months" },
+      { icon: <Tag size={24} strokeWidth={1.5} />, title: "Current Rate", val: "170 - 200" },
     ]
   },
   coconut: {
@@ -55,6 +58,7 @@ const productData: Record<string, any> = {
       { icon: <Package size={24} strokeWidth={1.5} />, title: "Packaging", val: "25 Pcs per PP Bag" },
       { icon: <MapPin size={24} strokeWidth={1.5} />, title: "Origin", val: "Tamil Nadu / Karnataka, India" },
       { icon: <Calendar size={24} strokeWidth={1.5} />, title: "Shelf Life", val: "50 to 60 Days" },
+      { icon: <Tag size={24} strokeWidth={1.5} />, title: "Current Rate", val: "25 - 30" },
     ]
   }
 };
